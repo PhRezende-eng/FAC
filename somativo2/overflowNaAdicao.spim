@@ -1,0 +1,52 @@
+.data
+	strSaida: .asciiz "\n"
+	strOverflow: .asciiz "overflow"
+.text
+
+main:
+    li $v0, 5
+    syscall
+
+    move $t0, $v0
+
+    li $v0, 5
+    syscall
+
+    move $t1, $v0
+
+    li $v0, 5 
+    syscall
+
+    move $t2, $v0
+
+    addu $t3, $t1, $t2
+
+    xor $t4, $t1, $t3
+    xor $t5, $t2, $t3
+    and $t6, $t4, $t5
+
+    bltz $t6, funcaoOverFlow
+
+    li $v0, 1
+    move $a0, $t3
+    syscall
+
+    li $v0, 4
+    la $a0, strSaida
+    syscall
+
+    li $v0, 10
+    syscall
+funcaoOverFlow:
+    li $v0, 4
+    la $a0, strOverflow
+    syscall
+
+    j saida
+saida:
+    li $v0, 4
+    la $a0, strSaida
+    syscall
+
+    li $v0, 10
+    syscall  
