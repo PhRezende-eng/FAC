@@ -1,0 +1,21 @@
+.data
+	doublemin: .float 0.0
+	# barran:	.asciiz	"\n"
+.text
+	main:
+	lwc1 $f3,doublemin
+		
+	li $v0,6
+	syscall
+	add.s $f2,$f0,$f3
+	
+	li $v0,6
+	syscall
+	
+	div.s $f12,$f2,$f0
+	
+	li $v0,2
+	syscall
+	
+	li $v0,10
+	syscall

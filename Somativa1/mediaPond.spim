@@ -1,0 +1,45 @@
+.data
+    barran: .asciiz "\n"
+    doublemain: .float 0.0
+
+.text
+	main:
+
+    li $v0, 5
+    syscall
+
+    move $t0,$v0
+    move $t1,$zero
+
+    lwc1 $f6,doublemain
+    lwc1 $f8,doublemain
+    lwc1 $f10,doublemain
+	
+	laco:
+	beq	$t1,$t0,said
+	
+	li $v0,6
+	syscall
+	add.s $f2,$f0,$f10
+	add.s $f8,$f8,$f0
+	
+	li	$v0,6
+	syscall
+	
+	mul.s $f4,$f0,$f2
+	add.s $f6,$f6,$f4
+	
+	addi $t1,$t1,1
+	j laco
+	
+	saida:
+	div.s $f12,$f6,$f8
+	li $v0,2
+	syscall
+	
+	li	$v0,4
+	la	$a0,barran
+	syscall
+	
+	li	$v0,10
+	syscall
